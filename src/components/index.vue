@@ -23,6 +23,7 @@
           @close="handleClose"
           router
         >
+        <!-- 用户 -->
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -32,6 +33,62 @@
                   <i class="el-icon-menu"></i>
                   用户列表
               </el-menu-item>        
+          </el-submenu>
+          <!-- 权限 -->
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>权限管理</span>
+            </template>
+              <el-menu-item index="roles">
+                  <i class="el-icon-menu"></i>
+                  角色列表
+              </el-menu-item>        
+              <el-menu-item index="rights">
+                  <i class="el-icon-menu"></i>
+                  权限列表
+              </el-menu-item>        
+          </el-submenu>
+          <!-- 商品 -->
+          <el-submenu index="3">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>商品管理</span>
+            </template>
+              <el-menu-item index="shopList">
+                  <i class="el-icon-menu"></i>
+                  商品列表
+              </el-menu-item>        
+              <el-menu-item index="params">
+                  <i class="el-icon-menu"></i>
+                  商品参数
+              </el-menu-item>        
+              <el-menu-item index="categories">
+                  <i class="el-icon-menu"></i>
+                  商品分类
+              </el-menu-item>        
+          </el-submenu>
+          <!-- 订单 -->
+          <el-submenu index="4">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>订单管理</span>
+            </template>
+              <el-menu-item index="orders">
+                  <i class="el-icon-menu"></i>
+                  订单列表
+              </el-menu-item>   
+          </el-submenu>
+          <!-- 订单 -->
+          <el-submenu index="5">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>数据统计</span>
+            </template>
+              <el-menu-item index="reports">
+                  <i class="el-icon-menu"></i>
+                  数据报表
+              </el-menu-item>   
           </el-submenu>
         </el-menu>
       </el-aside>
@@ -76,9 +133,11 @@ body {
       }
     }
     .aside {
-      background-color: lightpink;
+      background-color: lightskyblue;
     }
     .main {
+        padding: 10px;
+        background-color: rgb(238,238,255);
     }
   }
 }
