@@ -10,8 +10,7 @@ import index from "./components/index.vue";
 // 路由规则
 const routes=[
     {path:"/login",component:login},
-    {path:"/index",component:index},
-    {path:"/",redirect:"/login"},
+    {path:"/",component:index},
 
 ];
 
