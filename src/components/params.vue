@@ -7,6 +7,11 @@
     </el-breadcrumb>
     <!-- 警告窗 -->
     <el-alert title="注意：只允许为第三级分类设置相关参数！" type="warning" show-icon></el-alert>
+    <!-- 级联列表 -->
+    <el-cascader
+    expand-trigger="hover"
+    :options="options">
+    </el-cascader>
     <!-- tab切换栏 -->
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="动态参数" name="first">
@@ -37,19 +42,9 @@
 export default {
   data() {
     return {
+      options:[],
       activeName: "first",
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }
-      ]
+      tableData: []
     };
   }
 };

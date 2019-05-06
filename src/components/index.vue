@@ -112,7 +112,7 @@ body {
     height: 100%;
     .el-header {
       height: 60px;
-      background-color: skyblue;
+      background-color: #B3C0D1;
       .el-col {
         height: 60px;
       }
@@ -133,7 +133,7 @@ body {
       }
     }
     .aside {
-      background-color: lightskyblue;
+      background-color: #fff;
     }
     .main {
         padding: 10px;
