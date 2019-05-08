@@ -100,7 +100,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  created(){
+    console.log(this.$router);
+  }
+};
 </script>
 
 <style lang="scss">

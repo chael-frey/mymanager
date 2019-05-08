@@ -7,6 +7,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 // 导入路由
 import router from "./router";
+// 导入axios
+import http from "./http"
+Vue.use(http)
 
 new Vue({
   render: h => h(App),

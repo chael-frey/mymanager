@@ -18,7 +18,7 @@ import reports from "./components/reports.vue";
 // 路由规则
 const routes=[
     {path:"/login",component:login},
-    {path:"/",component:index,
+    {path:"/",name:"home",component:index,
       children:[
         {path:"user",component:user},
         {path:"roles",component:roles},
