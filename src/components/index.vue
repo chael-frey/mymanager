@@ -9,7 +9,7 @@
           <h1>顺其自然家族</h1>
         </el-col>
         <el-col :span="3">
-          <el-button type="danger">退出</el-button>
+          <el-button type="danger" @click="exit">退出</el-button>
         </el-col>
       </el-row>
     </el-header>
@@ -101,6 +101,18 @@
 
 <script>
 export default {
+  beforeCreate(){
+    if(!window.sessionStorage.getItem("token")){
+      this.$message.error("请先登录");
+      this.$router.push("login")
+    }
+  },
+  methods:{
+    exit(){
+      window.sessionStorage.removeItem("token")
+      this.$router.push("login")
+    }
+  },
   created(){
     console.log(this.$router);
   }

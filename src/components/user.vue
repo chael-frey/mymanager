@@ -38,19 +38,25 @@
 export default {
   data() {
     return {
+      
       tableData: [
         {
           date: "2016-05-02",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
         }
-      ]
+      ],
+      userData:{
+        query:"",
+        pagenum:1,
+        pagesize:10
+      },
     };
+  },
+  created(){
+    this.$axios.getUser(this.userData).then(res=>{
+      console.log(res);
+    })
   }
 };
 </script>
