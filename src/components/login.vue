@@ -2,15 +2,16 @@
   <div class="login">
     <div class="center">
       <h2>用户登录</h2>
-      <el-form label-position="top" :model="formData">
-        <el-form-item label="账号">
-          <el-input v-model="formData.username" minlength="1"></el-input>
+      <el-form label-position="top" :model="formData" :rules="formRules" ref="formRules">
+        <el-form-item label="账号" prop="username">
+          <el-input v-model="formData.username" ></el-input>
         </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="formData.password" show-password minlength="1"></el-input>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="formData.password" show-password ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleLogin">登录</el-button>
+          <el-button type="primary" @click="submitForm('formRules')">登录</el-button>
+          <el-button type="danger" @click="resetForm('formRules')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -26,31 +27,43 @@ export default {
         username: "",
         password: "",
         token:""
+      },
+      formRules:{
+        username:[
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+            { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
+        ],
+        password:[
+          { required: true, message: '请输入密码', trigger: 'blur' },
+            { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
+        ]
       }
     };
   },
   methods: {
-    /*handleLogin() {
-      if(this.formData.username==""||this.formData.password==""){
-          this.$message.error("账号或密码不能为空");
-          return 
-        }
-      this.$axios.post("login", this.formData).then(res => {
-        console.log(res);
-        if(res.data.meta.status==200) {
-          this.$message.success(res.data.meta.msg);
-          sessionStorage.setItem('token',res.data.data.token)
-           this.$router.push({name: 'home'})
-           console.log(this.$router);
-        }else{
-          this.$message.error(res.data.meta.msg);
-        }
-
-      });
-    }*/
+       submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.$axios.login(this.formData).then(res=>{
+              if(res.data.meta.status==400){
+                this.$message.error(res.data.meta.msg)
+              }else{
+                this.$message.success(res.data.meta.msg)
+                this.$router.push("/")
+              }
+            })
+          } else {
+            this.$message.error("数据有误");
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
   },
   created(){
-    this.$request.sayHi()
+    
   }
 };
 </script>
@@ -77,9 +90,11 @@ body {
   background-color: #fff;
   border-radius: 5px;
   padding: 30px 50px;
-  .el-button--primary {
+  .el-button {
     display: block;
     width: 100%;
+    margin: 0;
+    margin-bottom: 5px;
   }
   h2 {
     text-align: center;
@@ -88,11 +103,7 @@ body {
   }
   .el-form-item__label {
     padding: 0;
-    &::before {
-      content: "*";
-      color: red;
-      margin-right: 5px;
-    }
+    
   }
 }
 </style>

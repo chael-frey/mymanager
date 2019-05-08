@@ -1,13 +1,14 @@
 import axios from "axios"
+axios.defaults.baseURL="http://localhost:8888/api/private/v1/"
 // 抽取网络请求
 const request ={
-    sayHi(){
-        console.log("傻逼胡涛");
+    login(params){
+        return axios.post("login",params)
     }
 }
 
 export default{
     install(Vue){
-        Vue.prototype.$request=request;
+        Vue.prototype.$axios=request;
     }
 }
