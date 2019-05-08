@@ -19,8 +19,6 @@
         <el-menu
           default-active="2"
           class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
           router
         >
         <!-- 用户 -->
@@ -114,7 +112,6 @@ export default {
     }
   },
   created(){
-    console.log(this.$router);
   }
 };
 </script>
