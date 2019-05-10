@@ -1,5 +1,6 @@
 import axios from "axios"
 import Vue from "vue"
+import router from "./router"
 axios.defaults.baseURL="http://localhost:8888/api/private/v1/"
 // 拦截器修改header代入token
 axios.interceptors.request.use(function (config) {
@@ -20,6 +21,10 @@ axios.interceptors.response.use(
         Vue.prototype.$message.success(response.data.meta.msg)
         // 实例化Vue
         // new Vue().$message.success(response.data.meta.msg)
+      }else if(response.data.meta.status == 400){
+        Vue.prototype.$message.error("小逼崽子你想干嘛")
+        router.push("/login")
+        window.sessionStorage.clear()
       }
       return response
     },
@@ -29,20 +34,63 @@ axios.interceptors.response.use(
   )
 // 抽取网络请求
 const request ={
+    //登录 
     login(params){
         return axios.post("login",params)
     },
+    // 获取用户
     getUser(params){
         return axios.get("users",{params})
     },
+    // 修改用户状态
     stateChange(params){
         return axios.put(`users/${params.id}/state/${params.mg_state}`,params)
     },
+    // 删除用户
     delUser(params){
         return axios.delete(`users/${params.id}`,params)
     },
+    // 新增用户
     addUser(params){
       return axios.post("users",params)
+    },
+    // 根据id获取用户信息
+    getUserById(id){
+      return axios.get(`users/${id}`)
+    },
+    // 修改用户信息
+    updateUser(params){
+      return axios.put(`users/${params.id}`,params)
+    },
+    // 分配用户角色
+    updateUserRole(params) {
+      return axios.put(`users/${params.id}/role`, {
+        rid: params.rid
+      })
+    },
+    // 获取角色
+    getRoles(){
+      return axios.get("roles")
+    },
+    // 新增角色
+    addRoles(params){
+      return axios.post("roles",params)
+    },
+    // 删除角色
+    delRoles(params){
+      return axios.delete(`roles/${params.id}`,params)
+    },
+    // 修改角色
+    updateRolesById(params){
+      return axios.put(`roles/${params.id}`,params)
+    },
+    // 获取权限列表
+    getRights(){
+      return axios.get("rights/list")
+    },
+    // 获取折线图数据
+    getReports(){
+      return axios.get("reports/type/1")
     }
 }
 

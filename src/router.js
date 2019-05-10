@@ -15,9 +15,11 @@ import params from "./components/params.vue";
 import categories from "./components/categories.vue";
 import orders from "./components/orders.vue";
 import reports from "./components/reports.vue";
+import error from "./components/error.vue"
 // 路由规则
 const routes=[
     {path:"/login",component:login},
+    {path:"/error",component:error},
     {path:"/",component:index,
       children:[
         {path:"",redirect:"user"},
@@ -36,6 +38,15 @@ const routes=[
 // 实例化路由对象
 const router =new VueRouter({
     routes
+})
+
+// 设置路由前置守卫
+router.beforeEach((to, from, next) => {
+  if(to.matched.length==0){
+    next("error")
+  }else{
+    next()
+  }
 })
 
 // 暴露出去

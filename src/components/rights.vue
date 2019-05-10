@@ -1,15 +1,22 @@
 <template>
-  <div class="user">
+  <div class="user" v-loading="loading" element-loading-text="拼命加载中">
     <el-breadcrumb class="my-breadcrumb" separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>权限管理</el-breadcrumb-item>
       <el-breadcrumb-item>权限列表</el-breadcrumb-item>
     </el-breadcrumb>
-    <div class="table">
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="日期" width="180"></el-table-column>
-        <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="address" label="地址"></el-table-column>
+    <div class="table"  >
+      <el-table :data="tableData" style="width: 100%" border>
+        <el-table-column type="index" width="50"></el-table-column>
+        <el-table-column prop="authName" label="权限名称" width="180"></el-table-column>
+        <el-table-column prop="path" label="路径" width="180"></el-table-column>
+        <el-table-column prop="level" label="层级">
+          <template slot-scope="scope">
+              {{scope.row.level==0?'一级':''}}
+              {{scope.row.level==1?'二级':''}}
+              {{scope.row.level==2?'三级':''}}
+          </template>
+        </el-table-column>
       </el-table>
       
     </div>
@@ -20,19 +27,23 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }
-      ]
+      loading:true,
+      tableData: []
     };
+  },
+  methods:{
+    getRights(){
+      this.$axios.getRights().then(res=>{
+        this.tableData=res.data.data
+        setTimeout(() => {
+        // 延迟一会
+        this.loading = false;
+      }, 1000);
+      })
+    }
+  },
+  created(){
+    this.getRights()
   }
 };
 </script>
