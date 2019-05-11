@@ -37,6 +37,7 @@ const routes=[
 
 // 实例化路由对象
 const router =new VueRouter({
+    mode: 'history',
     routes
 })
 
