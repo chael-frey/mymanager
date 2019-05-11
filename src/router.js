@@ -6,17 +6,17 @@ Vue.use(VueRouter)
 
 // 导入组件
 import login from "./components/login.vue"
+import index from "./components/index.vue"
 // 路由规则
 const routes=[
-    {
-        path: '/login',
-        component: login
-    }
+    { path: '/login',component: login },
+    { path: '/index',component: index }
 ];
 
 // 实例化路由对象
 const router =new VueRouter({
-    routes
+    routes,
+    mode: 'history',
 })
 
 // 暴露出去

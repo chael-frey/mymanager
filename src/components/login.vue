@@ -50,7 +50,10 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
             this.$axios.login(this.userForm).then(res=>{
-                console.log("ok");
+              if(res.data.meta.status==200){
+                window.sessionStorage.setItem("token",res.data.data.token)
+                this.$router.push("/index")
+              }
             })
         } else {
           console.log('error submit!!');

@@ -25,8 +25,13 @@ axios.interceptors.response.use(function (response) {
 
 // 抽取网络请求
 const request={
+    // 登录
     login(params){
       return  axios.post("login",params);
+    },
+    // 获取左侧菜单
+    getMenu(){
+      return axios.get("menus")
     }
 } 
 // 暴露出去 包含install方法的对象
