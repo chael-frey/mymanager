@@ -179,11 +179,13 @@ export default {
         let checkedIds = [];
         function getCheckedKeys(item){
           item._children.forEach(v=>{
-            checkedIds.push(v.id);
+            
             if (v.children) {
               // 为了保证代码的一致 重新赋值 _children属性
               v._children = v.children;
               getCheckedKeys(v);
+            }else{
+              checkedIds.push(v.id);
             }
           })
         }
@@ -237,7 +239,7 @@ export default {
     },
     // 设置权限
     setRoleRights(){
-      const rids = this.$refs.tree.getCheckedKeys().join(",");
+      const rids = this.$refs.tree.getCheckedKeys().join(",")+","+this.$refs.tree.getHalfCheckedKeys().join(",");
        this.$axios.setRoleRights({
           // 直接获取之前弹出权限框保存的数据
           roleId: this.rightsForm.id,
@@ -250,6 +252,10 @@ export default {
             // 重新获取数据
             this.getRoles();
           }
+          this.$axios.getMenu().then(res=>{
+            console.log(res.data.data);
+            this.$store.commit("changeMenuList",res.data.data);
+          })
         });
     }
   },

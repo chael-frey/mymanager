@@ -22,7 +22,7 @@ const routes=[
     {path:"/error",component:error},
     {path:"/",component:index,
       children:[
-        {path:"",redirect:"user"},
+        {path:"",redirect:"users"},
         {path:"users",component:users},
         {path:"roles",component:roles},
         {path:"rights",component:rights},

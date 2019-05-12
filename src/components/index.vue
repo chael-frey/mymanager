@@ -22,7 +22,7 @@
           router
         >
         <!-- 用户 -->
-          <el-submenu v-for="(item,index) in menuForm" :key="index"  :index="item.order">
+          <el-submenu v-for="(item,index) in $store.state.menuList" :key="index"  :index="item.order+''">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>{{item.authName}}</span>
@@ -63,8 +63,7 @@ export default {
   },
   created(){
     this.$axios.getMenu().then(res=>{
-      this.menuForm=res.data.data;
-      console.log(this.menuForm);
+      this.$store.commit("changeMenuList",res.data.data);
     })
   }
 };
