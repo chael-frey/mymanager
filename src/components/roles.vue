@@ -253,7 +253,6 @@ export default {
             this.getRoles();
           }
           this.$axios.getMenu().then(res=>{
-            console.log(res.data.data);
             this.$store.commit("changeMenuList",res.data.data);
           })
         });

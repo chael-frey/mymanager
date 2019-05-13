@@ -11,6 +11,8 @@ import users from "./components/users.vue";
 import roles from "./components/roles.vue";
 import rights from "./components/rights.vue";
 import goods from "./components/goods.vue";
+import goodList from "./components/goodList.vue";
+import goodAdd from "./components/goodsAdd.vue";
 import params from "./components/params.vue";
 import categories from "./components/categories.vue";
 import orders from "./components/orders.vue";
@@ -26,7 +28,10 @@ const routes=[
         {path:"users",component:users},
         {path:"roles",component:roles},
         {path:"rights",component:rights},
-        {path:"goods",component:goods},
+        {path:"goods",component:goods,children:[
+          {path:"",component:goodList},
+          {path:"Add",component:goodAdd}
+        ]},
         {path:"params",component:params},
         {path:"categories",component:categories},
         {path:"orders",component:orders},
@@ -42,13 +47,13 @@ const router =new VueRouter({
 })
 
 // 设置路由前置守卫
-// router.beforeEach((to, from, next) => {
-//   if(to.matched.length==0){
-//     next("error")
-//   }else{
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if(to.matched.length==0){
+    next("/error")
+  }else{
+    next()
+  }
+})
 
 // 暴露出去
 export default router;

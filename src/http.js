@@ -115,6 +115,17 @@ const request ={
     // 获取左侧导航
     getMenu(){
       return axios.get('menus')
+    },
+    getGoods(params){
+      return axios.get("goods",{params})
+    },
+    // 获取商品分类
+    getCategories(){
+      return axios.get("categories?type=3")
+    },
+    // 获取该商品静态参数
+    getStatic(params){
+      return axios.get(`categories/${params.id}/attributes?sel=${params.type}`)
     }
 }
 
